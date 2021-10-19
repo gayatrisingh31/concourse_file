@@ -1,0 +1,25 @@
+resources:
+    - name: source-code
+      type: git
+      source:
+        uri: https://github.com/gayatrisingh31/node-hello
+        branch: main
+
+jobs:
+    - name: first-job
+      plan:
+        - get: source-code
+        - task: find
+          config:
+            platform: linux
+            image_resource:
+                type: docker-image
+                source:
+                    repository: ubuntu
+            inputs: 
+                - name: source-code
+            run:
+                path: find
+                args:
+                    - .
+
